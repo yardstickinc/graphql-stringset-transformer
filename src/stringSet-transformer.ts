@@ -2,7 +2,6 @@ import {
   Transformer,
   gql,
   TransformerContext,
-  InvalidDirectiveError,
 } from "graphql-transformer-core";
 import {
   DirectiveNode,
@@ -10,14 +9,14 @@ import {
   InterfaceTypeDefinitionNode,
   FieldDefinitionNode,
 } from "graphql";
-import { getBaseType, ModelResourceIDs } from "graphql-transformer-common";
+import {  ModelResourceIDs } from "graphql-transformer-common";
 
-export class BinaryTransformer extends Transformer {
+export class StringSetTransformer extends Transformer {
   constructor() {
     super(
-      "BinaryTransformer",
+      "StringSetTransformer",
       gql`
-        directive @binary on FIELD_DEFINITION
+        directive @stringSet on FIELD_DEFINITION
       `
     );
   }
@@ -28,11 +27,11 @@ export class BinaryTransformer extends Transformer {
     directive: DirectiveNode,
     acc: TransformerContext
   ) => {
-    if (!["String"].includes(getBaseType(definition.type))) {
-      throw new InvalidDirectiveError(
-        'Directive "binary" must be used only on String type fields.'
-      );
-    }
+    // if (!["String"].includes(getBaseType(definition.type))) {
+    //   throw new InvalidDirectiveError(
+    //     'Directive "stringSet" must be used only on String type fields.'
+    //   );
+    // }
 
     const tableName = ModelResourceIDs.ModelTableResourceID(parent.name.value);
     const table = acc.getResource(tableName);
@@ -42,14 +41,14 @@ export class BinaryTransformer extends Transformer {
     const newAttributeDefinitions = AttributeDefinitions.map((attr: any) => {
       if (attr.AttributeName === fieldName) {
         found = true;
-        attr.AttributeType = "B";
+        attr.AttributeType = "SS";
       }
       return attr;
     });
     if(!found){
         newAttributeDefinitions.push({
             AttributeName: fieldName,
-            AttributeType: "B",
+            AttributeType: "SS",
         });
     }
     table.Properties = {

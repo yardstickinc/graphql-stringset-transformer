@@ -1,7 +1,7 @@
 import { GraphQLTransform } from "graphql-transformer-core";
 import { DynamoDBModelTransformer } from "graphql-dynamodb-transformer";
 import { ModelResourceIDs } from "graphql-transformer-common";
-import BinaryTransformer from "../index";
+import StringSetTransformer from "../index";
 
 // @ts-ignore
 import { AppSyncTransformer } from "graphql-appsync-transformer";
@@ -10,22 +10,22 @@ const transformer = new GraphQLTransform({
   transformers: [
     new AppSyncTransformer(),
     new DynamoDBModelTransformer(),
-    new BinaryTransformer(),
+    new StringSetTransformer(),
   ],
 });
 
-describe("BinaryTransformer", () => {
-  test("Transform string to binary", () => {
+describe("StringSetTransformer", () => {
+  test("Transform string to stringSet", () => {
     const schema = `
     type MagicLinkSecret
     @model
     {
-        userNameHash: String! @binary
+        userNameHash: String! @stringSet
     }
   `;
     const properties = getPropertiesOfSchemaTable(schema, "MagicLinkSecret");
-    const binaryAttribute = properties.AttributeDefinitions.find((attr: any) => attr.AttributeName === "userNameHash");
-    expect(binaryAttribute.AttributeType).toEqual("B");
+    const stringSetAttribute = properties.AttributeDefinitions.find((attr: any) => attr.AttributeName === "userNameHash");
+    expect(stringSetAttribute.AttributeType).toEqual("SS");
   });
 
   const getPropertiesOfSchemaTable = (schema: string, schemaTypeName: string) => {

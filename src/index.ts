@@ -1,3 +1,3 @@
-import { BinaryTransformer } from "./binary-transformer";
+import { StringSetTransformer } from "./stringSet-transformer";
 
-export default BinaryTransformer;
+export default StringSetTransformer;
