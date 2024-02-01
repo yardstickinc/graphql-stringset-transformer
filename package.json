@@ -1,7 +1,7 @@
 {
-  "name": "graphql-binary-transformer",
+  "name": "graphql-stringSet-transformer",
   "version": "1.1.1",
-  "description": "Enable DynamoDB's binary scalar type in your AWS Amplify API!",
+  "description": "Enable DynamoDB's string set scalar type in your AWS Amplify API!",
   "author": "Austin Amoruso",
   "license": "MIT",
   "scripts": {
@@ -17,14 +17,14 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/austinamorusoyardstick/graphql-binary-transformer.git"
+    "url": "git+https://github.com/yardstickinc/graphql-stringset-transformer.git"
   },
-  "homepage": "https://github.com/austinamorusoyardstick/graphql-binary-transformer#readme",
+  "homepage": "https://github.com/yardstickinc/graphql-stringset-transformer#readme",
   "keywords": [
     "aws",
     "amplify",
     "grapqhl",
-    "binary",
+    "stringSet",
     "transformer",
     "scalar",
     "dynamodb"
